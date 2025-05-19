@@ -1,0 +1,26 @@
+{
+  "name": "crochet-ecommerce-backend",
+  "version": "1.0.0",
+  "description": "RESTful API for an e-commerce website selling handmade crochet dolls. Built with Node.js, Express, and MongoDB. Handles user authentication, product management, and order processing.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jeann1809/crochet-ecommerce-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Jeann1809/crochet-ecommerce-backend/issues"
+  },
+  "homepage": "https://github.com/Jeann1809/crochet-ecommerce-backend#readme",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongodb": "^6.16.0"
+  }
+}
