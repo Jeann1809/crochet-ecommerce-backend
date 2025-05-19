@@ -18,6 +18,15 @@ class productsModel {
         return await col_products.findOne({ _id: new ObjectId(id)});
     }
 
+    async delete(id){
+        const col_products = dbClient.db.collection('products');
+        return await col_products.deleteOne({ _id: new ObjectId(id)});
+    }
+
+    async update(id, product){
+        const col_products = dbClient.db.collection('products');
+        return await col_products.updateOne({ _id: new ObjectId(id)}, {$set: product});
+    }
 }
 
 export default new productsModel();

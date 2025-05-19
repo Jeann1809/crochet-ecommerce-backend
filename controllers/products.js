@@ -16,7 +16,9 @@ class productsController {
     
     async update (req, res){
         try{
-            res.status(200).json({status: 'update-ok'});
+            const { id } = req.params;
+            const data = await productsModel.update(id,req.body);
+            res.status(200).json(data);
         }catch(e){
             res.status(500).send(e);
         }
@@ -24,6 +26,8 @@ class productsController {
 
     async delete (req, res){
        try{
+            const { id } = req.params;
+            const data = await productsModel.delete(id);
             res.status(200).json({status: 'delete-ok'});
         }catch(e){
             res.status(500).send(e);
