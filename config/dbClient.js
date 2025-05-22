@@ -1,22 +1,27 @@
 import 'dotenv/config';
-import { MongoClient } from "mongodb";
+import mongoose from 'mongoose';
 
 class dbClient {
+    
     constructor(){
-        const queryString = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_LINK}/?retryWrites=true&w=majority&appName=crochet-cluster`;
-        this.client = new MongoClient(queryString);
         this.connectDB();
     }
 
     async connectDB(){
+        const queryString = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_LINK}/crochet-cluster?retryWrites=true&w=majority`;
+        await mongoose.connect(queryString);
+        console.log("Successfully connected to the data base");
+    }
+
+    async closeDB(){
         try {
-            await this.client.connect();
-            this.db = this.client.db('crochet_store');
-            console.log('Successfully connected to the data base');
+            await mongoose.disconnect();
+            console.log("Data base closed");
         } catch (e) {
-            console.log(e);
+            console.error("Error while closing the data base", e);
         }
     }
+
 }
 
 export default new dbClient();
