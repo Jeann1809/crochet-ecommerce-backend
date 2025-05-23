@@ -1,6 +1,7 @@
 import express from 'express';
 import 'dotenv/config';
 import productRoutes from './routes/products.js';
+import usersRoutes from './routes/users.js';
 import bodyParser from 'body-parser';
 import dbClient from './config/dbClient.js';
 
@@ -11,6 +12,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/products', productRoutes); //Using product routes
+app.use('/users', usersRoutes); //Using product routes
+
 
 app.listen(PORT, () => {
     console.log(`API listening on PORT: ${PORT}`);

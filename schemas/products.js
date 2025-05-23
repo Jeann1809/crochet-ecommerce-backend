@@ -17,19 +17,26 @@ const productSchema = mongoose.Schema(
             required: true
         },
 
-        category: {
-            type: String,
+        categories: {
+            type: [String],
             required: true,
             enum: [
                 'animals', 'space', 'flowers', 'lovables'
             ]
         },
+        
 
         stock: {
             type: Number,
             required: true,
             min: [0, 'stock cannot be negative']
+        },
+
+        image: {
+            type: String,
+            default: "https://www.reshot.com/preview-assets/icons/RCEK872AJD/image-RCEK872AJD.svg"
         }
+        
     }, { timestamps: true }
 );
 
