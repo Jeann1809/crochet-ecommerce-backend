@@ -95,7 +95,16 @@ DELETE /products/:id        - Delete a product (admin only)
 <p>Frontend is expected to be built with Angular and should handle routing for login, registration, and reset password pages.</p>
 
 <h2>📜 License</h2>
-<p>MIT License</p>
+<p>
+    This project is licensed under the
+    <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank">
+      GNU General Public License v3.0 (GPLv3)
+    </a>.
+  </p>
+  <p>
+    You are free to use, modify, and distribute this code under the same license.
+    Any distributed version must remain open-source and under the same GPLv3 terms.
+  </p>
 
 <h2>🙋 Author</h2>
 <p><a href="https://github.com/Jeann1809">Jean Almario</a></p>
