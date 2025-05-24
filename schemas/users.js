@@ -25,11 +25,6 @@ const userSchema = mongoose.Schema(
             required: true,
         },
 
-        orders: {
-            type: [Number],
-            default: []
-        },
-
         phone: {
             type: Number,
             required: false
@@ -37,7 +32,6 @@ const userSchema = mongoose.Schema(
 
         role: {
             type: String,
-            required: true,
             default: "customer"
         },
 

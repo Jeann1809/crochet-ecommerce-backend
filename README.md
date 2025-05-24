@@ -74,6 +74,16 @@ PUT    /products/:id        - Update a product (admin only)
 DELETE /products/:id        - Delete a product (admin only)
 </code></pre>
 
+<h3>🧾 Orders</h3>
+<pre><code class="language-json">
+GET    /orders            - Get all orders (admin only)
+GET    /orders/:id        - Get an order by ID (admin only)
+GET    /orders/user/:id   - Get an order by User
+POST   /orders/           - Create a new order
+PUT    /orders/:id        - Update an order 
+DELETE /orders/:id        - Delete an order (admin only)
+</code></pre>
+
 <h2>🔐 Notes on Security</h2>
 <ul>
   <li>Passwords are hashed using bcrypt</li>

@@ -4,6 +4,7 @@ import productRoutes from './routes/products.js';
 import usersRoutes from './routes/users.js';
 import bodyParser from 'body-parser';
 import dbClient from './config/dbClient.js';
+import ordersRoutes from './routes/orders.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,7 +13,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/products', productRoutes); //Using product routes
-app.use('/users', usersRoutes); //Using product routes
+app.use('/users', usersRoutes); //Using user routes
+app.use('/orders', ordersRoutes); //Using order routes
 
 
 app.listen(PORT, () => {

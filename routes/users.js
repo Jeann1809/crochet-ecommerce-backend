@@ -6,7 +6,7 @@ const route = express.Router();
 
 route.post('/register', usersController.register); //REGISTER
 route.post('/login',  usersController.login); //LOGIN
-route.post('/profile/:id', verifyToken, usersController.profile);//PROFILE
+route.get('/profile/:id', verifyToken, usersController.profile); //PROFILE
 route.delete('/delete/:id', verifyToken, usersController.delete);
 route.put('/update/:id', verifyToken, usersController.update);
 route.put('/updatepass/:id', verifyToken, usersController.updatePass);
