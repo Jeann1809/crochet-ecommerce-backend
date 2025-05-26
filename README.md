@@ -84,6 +84,13 @@ PUT    /orders/:id        - Update an order
 DELETE /orders/:id        - Delete an order (admin only)
 </code></pre>
 
+<h3>🛒 Shopping Cart</h3>
+<pre><code class="language-json">
+GET    /users/cart/:id              - Get user's shopping cart
+POST   /users/cart/:id              - Add product to user's cart
+DELETE /users/cart/:id/:productId   - Remove product from user's cart
+</code></pre>
+
 <h2>🔐 Notes on Security</h2>
 <ul>
   <li>Passwords are hashed using bcrypt</li>
