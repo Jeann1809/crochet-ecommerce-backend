@@ -12,6 +12,10 @@ route.put('/update/:id', verifyToken, usersController.update);
 route.put('/updatepass/:id', verifyToken, usersController.updatePass);
 route.put('/forgetpass', usersController.forgetPassword);
 route.put('/resetpass/:token', usersController.resetPassword);
+route.get('/cart/:id', verifyToken, usersController.getCart);
+route.post('/cart/:id', verifyToken, usersController.addToCart);
+route.delete('/cart/:id/:productId', verifyToken, usersController.removeFromCart);
+
 
 
 export default route;

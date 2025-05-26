@@ -38,7 +38,25 @@ const userSchema = mongoose.Schema(
         password: {
             type: String,
             required: true
-        }
+        },
+
+        shopping_cart: [
+            {
+            productId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "products",
+                required: true
+            },
+            quantity: {
+                type: Number,
+                required: true,
+                default: 1
+            }
+            }
+        ]
+
+
+        
 
     }
 )

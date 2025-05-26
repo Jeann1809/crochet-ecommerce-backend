@@ -161,5 +161,64 @@ class usersController {
         }
     }
 
+    async addToCart(req, res) {
+        const { id } = req.params;
+        const { productId, quantity } = req.body;
+
+        try {
+            const user = await usersModel.getOneById(id);
+
+            if (!user) {
+            return res.status(404).json({ error: "User not found" });
+            }
+
+            // Check if product already in shopping_cart
+            const item = user.shopping_cart.find(item => item.productId.equals(productId));
+            if (item) {
+                item.quantity += quantity;
+            } else {
+                user.shopping_cart.push({ productId, quantity });
+            }
+            await user.save();
+            res.status(200).json(user.shopping_cart);
+        } catch (e) {
+            console.log(e);
+            res.status(500).send(e);
+        }
+    }
+
+    async getCart(req, res) {
+    const { id } = req.params;
+
+    try {
+        const user = await usersModel.getOneById(id);
+        await user.populate("shopping_cart.productId");
+        res.status(200).json(user.shopping_cart);
+    } catch (e) {
+        console.log(e);
+        res.status(500).send(e);
+    }
+    }
+
+    async removeFromCart(req, res) {
+    const { id, productId } = req.params;
+
+    try {
+        const user = await usersModel.getOneById(id);
+
+        if (!user) {
+        return res.status(404).json({ error: "User not found" });
+        }
+
+        user.shopping_cart = user.shopping_cart.filter(item => !item.productId.equals(productId));
+        await user.save();
+        res.status(200).json(user.shopping_cart);
+    } catch (e) {
+        console.log(e);
+        res.status(500).send(e);
+    }
+    }
+
+
 }
 export default new usersController();
