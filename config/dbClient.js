@@ -8,7 +8,7 @@ class dbClient {
     }
 
     async connectDB(){
-        const queryString = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_LINK}/crochet-cluster?retryWrites=true&w=majority`;
+        const queryString = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@crochet-cluster.0zbdci0.mongodb.net/crochet-cluster?retryWrites=true&w=majority&appName=crochet-cluster`;
         await mongoose.connect(queryString);
         console.log("Successfully connected to the data base");
     }
