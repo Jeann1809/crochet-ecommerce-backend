@@ -91,13 +91,20 @@ class ordersController {
 
             console.log("Prepared order email HTML:", orderInfo);
 
-            // Send email to marimarcrochet@gmail.com
-            await sendEmail(
-                'marimarcrochet@gmail.com',
-                'New Order Notification',
-                orderInfo
-            );
-            console.log("Order notification email sent.");
+            // Debug: Before sending email
+            console.log("Attempting to send order notification email...");
+
+            try {
+                // Send email to marimarcrochet@gmail.com
+                await sendEmail(
+                    'marimarcrochet@gmail.com',
+                    'New Order Notification',
+                    orderInfo
+                );
+                console.log("Order notification email sent successfully.");
+            } catch (emailError) {
+                console.error("Error while sending order notification email:", emailError);
+            }
 
             res.status(201).json(data);
         }catch(e){
