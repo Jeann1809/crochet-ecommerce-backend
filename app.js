@@ -12,7 +12,11 @@ const PORT = process.env.PORT || 3000;
 
 // ✅ Allow requests from your frontend (Next.js)
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000', // Your Next.js URL
+  origin: [
+    'https://marimarcrochet.com',
+    'https://www.marimarcrochet.com',
+    'http://localhost:3000'
+  ],
   credentials: true
 }));
 
