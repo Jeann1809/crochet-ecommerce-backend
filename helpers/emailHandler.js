@@ -1,19 +1,20 @@
 import nodemailer from 'nodemailer';
-import 'dotenv/config';
 
-export async function sendEmail(to, subject, htmlContent) {
-  const transporter = nodemailer.createTransport({
-    service: 'gmail', // or use another SMTP provider
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: process.env.SMTP_PORT,
+  secure: true, // true for port 465, false for 587
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS
+  }
+});
 
+export async function sendEmail(to, subject, html) {
   await transporter.sendMail({
-    from: `"MariMar Crochet Shop" <${process.env.EMAIL_USER}>`,
+    from: process.env.SMTP_USER,
     to,
     subject,
-    html: htmlContent,
+    html
   });
 }

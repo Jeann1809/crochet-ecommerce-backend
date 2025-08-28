@@ -39,13 +39,24 @@ class ordersController {
                    <p><strong>Email:</strong> ${data.email || 'N/A'}</p>`;
 
             // Prepare product list as a table
-            const productRows = data.products.map(p => `
-                <tr>
-                    <td style="padding:8px;border:1px solid #ddd;">${p.productId.name}</td>
-                    <td style="padding:8px;border:1px solid #ddd;">${p.productId.description}</td>
-                    <td style="padding:8px;border:1px solid #ddd; text-align:center;">${p.quantity}</td>
-                </tr>
-            `).join('');
+            const productRows = data.products.map(p => {
+                if (!p.productId) {
+                    return `
+                        <tr>
+                            <td colspan="3" style="padding:8px;border:1px solid #ddd; color:red;">
+                                Product not found (ID: ${p._id || 'N/A'})
+                            </td>
+                        </tr>
+                    `;
+                }
+                return `
+                    <tr>
+                        <td style="padding:8px;border:1px solid #ddd;">${p.productId.name}</td>
+                        <td style="padding:8px;border:1px solid #ddd;">${p.productId.description}</td>
+                        <td style="padding:8px;border:1px solid #ddd; text-align:center;">${p.quantity}</td>
+                    </tr>
+                `;
+            }).join('');
 
             // Full order email HTML
             const orderInfo = `
