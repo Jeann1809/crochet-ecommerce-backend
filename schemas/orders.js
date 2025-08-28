@@ -4,7 +4,12 @@ const orderSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "users",
-    required: true
+    required: false // Changed to not required
+  },
+
+  email: {
+    type: String,
+    required: false // Optional email
   },
 
   products: [
@@ -24,12 +29,6 @@ const orderSchema = new mongoose.Schema({
   total: {
     type: Number,
     required: true
-  },
-
-  paymentMethod: {
-    type: String,
-    enum: ["cash", "card", "paypal"],
-    default: "cash"
   },
 
   shippingAddress: {

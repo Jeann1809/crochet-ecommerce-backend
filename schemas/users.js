@@ -10,19 +10,16 @@ const userSchema = mongoose.Schema(
             lowercase: true
         },
 
-        firstName: {
+        name: {
             type: String,
             required: true,
         },
 
-        lastName: {
-            type: String,
-            required: true,
-        },
-
-        address: {
-            type: String,
-            required: true,
+        shippingAddress: {
+            street: { type: String, required: true },
+            city: { type: String, required: true },
+            zip: { type: String, required: true },
+            country: { type: String, required: true }
         },
 
         phone: {
@@ -54,10 +51,6 @@ const userSchema = mongoose.Schema(
             }
             }
         ]
-
-
-        
-
     }
 )
 

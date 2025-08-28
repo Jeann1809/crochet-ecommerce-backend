@@ -15,7 +15,7 @@ class productsModel {
     }
 
     async delete(id){
-        return await Product.findOneAndDelete(id);
+        return await Product.findOneAndDelete({ _id: id });
     }
 
     async update(id, product){

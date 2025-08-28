@@ -10,7 +10,7 @@ class usersController {
 
     async register(req, res){
         try{
-            const {email, firstName, lastName, address, orders, phone, password, role } = req.body;
+            const {email, name, shippingAddress, orders, phone, password, role } = req.body;
             //Search for an user with the same email in the database
             const userExists = await usersModel.getOne({email});
 
@@ -23,9 +23,8 @@ class usersController {
 
             const data = await usersModel.create({
                 email,
-                firstName, 
-                lastName, 
-                address, 
+                name,
+                shippingAddress, 
                 orders, 
                 phone,
                 role, 
@@ -81,7 +80,7 @@ class usersController {
     async update(req, res){
         try{
             const { id } = req.params;
-            const updates = (({ firstName, lastName, address, phone }) => ({ firstName, lastName, address, phone }))(req.body);
+            const updates = (({ name, shippingAddress, phone }) => ({ name, shippingAddress, phone }))(req.body);
             const data = await usersModel.update(id, updates);
             res.status(200).json({data});
         }catch(e){
@@ -116,7 +115,7 @@ class usersController {
 
         const html = `
                     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #5a3e36;">
-                        <h2 style="color: #d77a61;">🧶 Hello dear ${user.firstName},</h2>
+                        <h2 style="color: #d77a61;">🧶 Hello dear ${user.name},</h2>
                         <p>
                         We noticed you requested a password reset. No worries — even the coziest yarn can get tangled sometimes. 🧵
                         </p>

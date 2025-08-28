@@ -1,4 +1,6 @@
 import ordersModel from '../models/orders.js'
+import { sendEmail } from '../helpers/emailHandler.js';
+import Order from '../schemas/orders.js';
 
 class ordersController {
     constructor(){
@@ -7,7 +9,78 @@ class ordersController {
 
     async create (req, res){
         try{
-            const data = await ordersModel.create(req.body);
+            // Create the order
+            const createdOrder = await ordersModel.create(req.body);
+
+            // Fetch the order with populated product and user details
+            const data = await Order.findById(createdOrder._id)
+                .populate('products.productId')
+                .populate('user'); // Populate user info
+
+            // Prepare user info for email
+const userInfo = data.user
+    ? `
+        <h3>👤 Customer Information</h3>
+        <p><strong>Name:</strong> ${data.user.name}</p>
+        <p><strong>Email:</strong> ${data.user.email}</p>
+        <p><strong>Phone:</strong> ${data.user.phone || 'N/A'}</p>
+        <p><strong>Shipping Address:</strong><br>
+            ${data.user.shippingAddress.street},<br>
+            ${data.user.shippingAddress.city}, ${data.user.shippingAddress.zip},<br>
+            ${data.user.shippingAddress.country}
+        </p>
+      `
+    : `<h3>👤 Customer Information</h3>
+       <p><strong>Email:</strong> ${data.email || 'N/A'}</p>`;
+
+// Prepare product list as a table
+const productRows = data.products.map(p => `
+    <tr>
+        <td style="padding:8px;border:1px solid #ddd;">${p.productId.name}</td>
+        <td style="padding:8px;border:1px solid #ddd;">${p.productId.description}</td>
+        <td style="padding:8px;border:1px solid #ddd; text-align:center;">${p.quantity}</td>
+    </tr>
+`).join('');
+
+// Full order email HTML
+const orderInfo = `
+    <div style="font-family:Arial, sans-serif; line-height:1.5; color:#333;">
+        <h2 style="color:#2E8B57;">🧶 New Order Placed!</h2>
+        
+        ${userInfo}
+
+        <h3>📦 Order Summary</h3>
+        <p><strong>Total:</strong> $${Number(data.total).toFixed(2)}</p>
+        <p><strong>Status:</strong> ${data.status}</p>
+
+        <h3>🛍 Products</h3>
+        <table style="border-collapse:collapse; width:100%; border:1px solid #ddd;">
+            <thead>
+                <tr>
+                    <th style="padding:8px; border:1px solid #ddd; background:#f7f7f7;">Name</th>
+                    <th style="padding:8px; border:1px solid #ddd; background:#f7f7f7;">Description</th>
+                    <th style="padding:8px; border:1px solid #ddd; background:#f7f7f7;">Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${productRows}
+            </tbody>
+        </table>
+
+        <p style="margin-top:20px; font-size:0.9em; color:#555;">
+            <em>Order placed at: ${new Date(data.createdAt).toLocaleString()}</em>
+        </p>
+    </div>
+`;
+
+
+            // Send email to marimarcrochet@gmail.com
+            await sendEmail(
+                'marimarcrochet@gmail.com',
+                'New Order Notification',
+                orderInfo
+            );
+
             res.status(201).json(data);
         }catch(e){
             res.status(500).send(e);
