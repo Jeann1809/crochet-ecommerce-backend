@@ -2,19 +2,20 @@ import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 dotenv.config();
 
-
 const transporter = nodemailer.createTransport({
-  service: 'gmail', // tells Nodemailer to use Gmail settings
+  host: process.env.SMTP_HOST, // smtp.sendgrid.net
+  port: process.env.SMTP_PORT, // 587
+  secure: false, // true si usas 465, false si usas 587
   auth: {
-    user: process.env.EMAIL_USER, // your Gmail address
-    pass: process.env.EMAIL_PASS  // your Gmail App Password
+    user: process.env.SMTP_USER, // normalmente 'apikey' para SendGrid
+    pass: process.env.SMTP_PASS  // tu API key de SendGrid
   }
 });
 
 export async function sendEmail(to, subject, html) {
   try {
     let info = await transporter.sendMail({
-      from: `"Marimar Crochet" <${process.env.EMAIL_USER}>`,
+      from: `"Marimar Crochet" <${process.env.EMAIL_FROM}>`, // orders@marimarcrochetapi.shop
       to,
       subject,
       html
